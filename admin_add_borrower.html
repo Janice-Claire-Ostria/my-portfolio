@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>ADD BORROWER</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="admin_library.css">
+  <link rel="shorcut icon" type="image/png" href="img/favicon.png">
+
+  <style>
+    
+  </style>
+</head>
+<body>
+    <div class="head">
+        <a href="#"><div id="logo"><i class="fa-solid fa-book-open"></div></i><p>Library Management</p> </a>
+    
+        </div><br>
+    
+        <div class="navbar">
+          <div class="buttons">
+            <a href="admin_add_book.html"><i class="fa fa-book"></i><br>Add Book</a>
+            <a href="admin_add_borrower.html" style="border-bottom: 3px solid white;"><i class="fa-solid fa-book-open-reader"></i><br>Add Borrower</a>
+            <a href="admin_book_approval.html"><i class="fa-regular fa-circle-check"></i><br>Book Approval</a>
+            <a href="admin_book_return.html"><i class="fa-solid fa-turn-up" style="rotate: 270deg;"></i><br>Book Return</a>
+            <a href="admin_borrower_report.html"><i class="fa-solid fa-address-book"></i><br>Borrower Report</a>
+            <a href="admin_book_report.html"><i class="fa-solid fa-list-ul"></i><br>Book Report</a>
+          </div>
+        </div>
+        <div class="bottom-right">
+          <div class="view-buttons">
+              <a href="admin_homepage.html" title="Home"><i class="fa-solid fa-house" style="padding: 0px 0px 0px 1px;"></i></a>         
+              <a href="admin_booklist.html" title="Inventory"><i class="fa-solid fa-table-cells" style="padding: 0px 0px 0px 2px;"></i></a>
+              <a href="admin_login.html" title="LogOut"><i class="fa-solid fa-right-from-bracket" style="padding: 0px 0px 0px 3px;"></i></a>
+          </div>
+        </div>
+        <div class="overview">
+          <div class="middle"> 
+              <img src="bg.png" width="100%"/>   
+              
+              <div class="left">
+                  <div id="welcome">
+                      <h1>Add Borrower</h1>
+                      <br><p style="margin: 0px 0px 15px 35px; font-size: 10px;">return to</p><a href="admin_homepage.html">Home</a>   
+                  </div>     
+              </div> 
+          </div>
+        </div>
+        <div class="contents">
+          <div class="borrowerInput">
+            <div class="inputDiv">
+                <form id="borrowerSection">
+                  <label for="isbn">Name:</label><br>
+                    <input type="text" id="name"><br>
+
+                  <label for="isbn">Contact:</label><br>
+                    <input type="text" id="contact"><br>
+
+                  <label for="isbn">Email:</label><br>
+                    <input type="text" id="email"><br>
+                  
+                  <button type="button" onclick="clearFields()">
+                    Clear
+                  </button>
+                  <button type="submit">
+                    Submit
+                  </button>
+                </form>
+            </div>
+          </div>
+              <div class="tableDiv">
+                <table style="position: absolute; background-color: white; margin-top: 0px; height: 60px;">
+                    <tr>
+                        <th>Borrower Name</th>
+                        <th>Contact</th>
+                        <th>Email</th>
+                    </tr>
+                  </table>
+                <table id="borrowerTable">
+                  <thead>
+                    <tr>
+                      <th>Borrower Name</th>
+                      <th>Contact</th>
+                      <th>Email</th>
+                    </tr>
+                  </thead>
+                  <tbody id="borrowerList">
+                    <!-- The borrower data will be added here -->
+                  </tbody>
+                </table>
+              </div>
+        </div>
+  
+        <script>
+          function clearFields() {
+            document.getElementById('name').value = "";
+            document.getElementById('contact').value = "";
+            document.getElementById('email').value = "";
+          }
+      
+          // Retrieve stored data and populate the table on page load
+          var storedBorrower = JSON.parse(localStorage.getItem("borrower")) || [];
+            var borrowerList = document.getElementById("borrowerList");
+            storedBorrower.forEach(function (borrower) {
+              var row = borrowerList.insertRow();
+              var nameCell = row.insertCell();
+              var contactCell = row.insertCell();
+              var emailCell = row.insertCell();
+              nameCell.textContent = borrower.name;
+              contactCell.textContent = borrower.contact;
+              emailCell.textContent = borrower.email;
+            });
+      
+      
+          var borrowerForm = document.getElementById('borrowerSection');
+          borrowerForm.addEventListener("submit", function (event) {
+            event.preventDefault();
+            var nameInput = document.getElementById("name");
+            var contactInput = document.getElementById("contact");
+            var emailInput = document.getElementById("email");
+            var borrowerName = nameInput.value;
+            var borrowerContact = contactInput.value;
+            var borrowerEmail = emailInput.value;
+            var newBorrower = {
+              name: borrowerName,
+              contact: borrowerContact,
+              email: borrowerEmail
+            };
+      
+            storedBorrower.push(newBorrower);
+            localStorage.setItem("borrower", JSON.stringify(storedBorrower));
+            var row = borrowerList.insertRow();
+            var nameCell = row.insertCell();
+            var contactCell = row.insertCell();
+            var emailCell = row.insertCell();
+            nameCell.textContent = newBorrower.name;
+            contactCell.textContent = newBorrower.contact;
+            emailCell.textContent = newBorrower.email;
+            alert("New Borrower Added" +
+              "\nBorrower Name: " + borrowerName +
+              "\nContact: " + borrowerContact +
+              "\nEmail: " + borrowerEmail
+            );
+            document.getElementById('name').value = "";
+            document.getElementById('contact').value = "";
+            document.getElementById('email').value = "";
+           
+          });
+            
+        </script>
+</body>
+</html>

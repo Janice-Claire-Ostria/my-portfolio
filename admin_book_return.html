@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Book Return</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="admin_library.css"/>
+  <link rel="shorcut icon" type="image/png" href="img/favicon.png">
+
+</head>
+<body>
+    <div class="head">
+        <a href="#"><div id="logo"><i class="fa-solid fa-book-open"></div></i><p>Library Management</p> </a>
+    
+        </div><br>
+    
+        <div class="navbar">
+          <div class="buttons">
+            <a href="admin_add_book.html"><i class="fa fa-book"></i><br>Add Book</a>
+            <a href="admin_add_borrower.html"><i class="fa-solid fa-book-open-reader"></i><br>Add Borrower</a>
+            <a href="admin_book_approval.html"><i class="fa-regular fa-circle-check"></i></i><br>Book Approval</a>
+            <a href="admin_book_return.html" style="border-bottom: 3px solid white;"><i class="fa-solid fa-turn-up" style="rotate: 270deg;"></i><br>Book Return</a>
+            <a href="admin_borrower_report.html"><i class="fa-solid fa-address-book"></i><br>Borrower Report</a>
+            <a href="admin_book_report.html"><i class="fa-solid fa-list-ul"></i><br>Book Report</a>
+          </div>
+        </div>
+        <div class="bottom-right">
+          <div class="view-buttons">
+              <a href="admin_homepage.html" title="Home"><i class="fa-solid fa-house" style="padding: 0px 0px 0px 1px;"></i></a>         
+              <a href="admin_booklist.html" title="Inventory"><i class="fa-solid fa-table-cells" style="padding: 0px 0px 0px 2px;"></i></a>
+              <a href="admin_login.html" title="LogOut"><i class="fa-solid fa-right-from-bracket" style="padding: 0px 0px 0px 3px;"></i></a>
+          </div>
+        </div>
+        <div class="overview">
+          <div class="middle"> 
+              <img src="bg.png" width="100%"/>   
+              
+              <div class="left">
+                  <div id="welcome">
+                      <h1>Book Return</h1>
+                      <br><p style="margin: 0px 0px 15px 35px; font-size: 10px;">return to</p><a href="admin_homepage.html">Home</a>   
+                  </div>     
+              </div> 
+          </div>
+        </div>
+        <div class="contents">
+            <div class="tableDiv">
+                <table style="position: absolute; background-color: white; margin-top: 0px; height: 60px;">
+                    <tr>
+                        <th>Name</th>
+                        <th>Book Id</th>
+                        <th>Book Title</th>
+                        <th>Issue Date</th>
+                        <th>Expiry Date</th>
+                        <th>Status</th>
+                        <th>Fine</th>
+                        <th>Actions</th>
+                    </tr>
+                </table>
+                <div id="requestsTable">
+
+                </div>
+            </div>
+        </div>
+</body>
+    <script> 
+    function displayRequests() {
+	var requests = JSON.parse(localStorage.getItem("bookRequests")) || [];
+
+	var table = document.createElement("table");
+	var headerRow = table.insertRow();
+	headerRow.innerHTML = "<th>Name</th><th>book Id</th><th>Book Title</th><th>Issue date</th><th>Expiry date</th><th>Status</th><th>fine</th><th>Actions</th>";
+
+	requests.forEach(function(request, index) {
+
+		if (request.status === "Approved") {
+			var row = table.insertRow();
+			row.innerHTML = "<td>" + request.name + "</td><td>" + request.bookId + "</td><td>" + request.bookTitle +
+				"</td><td>" + request.issueDate + "</td><td>" + request.expiryDate + "</td><td>" + request.status + "</td><td>" +
+				"<input type='text' class='fineInput' id='fine_" + index + "'>" +
+				"</td><td><button onclick='returnBook(" + index + ")' id='return'>Return</button></td>";
+		}
+	});
+
+	document.getElementById("requestsTable").innerHTML = "";
+	document.getElementById("requestsTable").appendChild(table);
+}
+
+    function saveFines() {
+        var fines = {};
+        var fineInputs = document.getElementsByClassName('fineInput');
+
+        for (var i = 0; i < fineInputs.length; i++) {
+            fines[i] = parseFloat(fineInputs[i].value) || 0;
+        }
+
+        localStorage.setItem("bookFines", JSON.stringify(fines));
+    }
+
+    function returnBook(index) {
+    // Save fines before retrieving them
+    saveFines();
+
+    // Retrieve fines from localStorage
+    var fines = JSON.parse(localStorage.getItem("bookFines")) || {};
+    var fine = fines[index] || 0;
+
+    // Retrieve requests and update the status
+    var requests = JSON.parse(localStorage.getItem("bookRequests")) || [];
+    requests[index].status = "Returned";
+    localStorage.setItem("bookRequests", JSON.stringify(requests));
+
+    // Retrieve available books
+    var storedBooks = JSON.parse(localStorage.getItem("booksAvailable")) || [];
+
+    // Find the book in storedBooks based on the bookId
+    var bookId = requests[index].bookId;
+    var foundBook = storedBooks.find(book => book.id === bookId);
+
+    if (foundBook) {
+        // Update the book information
+        foundBook.rent--;
+        foundBook.available++;
+
+        // Save the updated booksAvailable array
+        localStorage.setItem("booksAvailable", JSON.stringify(storedBooks));
+
+        alert("Book has been returned. Fine: " + fine);
+
+        // Display updated requests
+        displayRequests();
+    }
+}
+
+        
+      </script>
+    
+      <script>
+        displayRequests();
+      </script>
+</html>

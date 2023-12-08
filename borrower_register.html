@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Register Borrower</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer"/>
+  <link rel="stylesheet" href="borrower_library.css"/>
+  <link rel="shorcut icon" type="image/png" href="img/favicon.png">
+  </head>
+  
+  <body>
+    <div class="login-middle"> 
+      <img src="img/library-background.jpg" width="100%"/>   
+    </div>  
+
+      <div class="login-section">
+        <div class="login-container">
+          <img src="img/library(2).jpg"/>
+            <div class="login-form">
+              <h2>Borrower Register</h2>
+              <form>
+                <i class="fa-solid fa-user"> </i>&emsp;
+                <input type="text" name="username" id="username" placeholder="Username" required></input><br>   
+                <i class="fa-solid fa-lock"> </i>&emsp;
+                <input type="text" name="password" id="password" placeholder="Password" required></input><br>           
+                <button type="button" name="submit" id="submit" class="btn-submit" onclick="registerUser()">Register</button>
+              </form>
+              <p>Already have an account? <a href="borrower_login.html">Login</a></p><br>
+            </div>
+
+            
+        </div>
+      </div> 
+    
+
+    <script>
+        function clearAllFields(){
+          document.getElementById('username').value = "";
+          document.getElementById('password').value = "";
+        }
+        // Function to handle registration
+        function registerUser() {
+          var username = document.getElementById("username").value;
+          var password = document.getElementById("password").value;
+    
+          // Create an object with user details
+          var user = {
+            username: username,
+            password: password
+          };
+    
+          if (username === "" && password === ""){
+            alert("Username and Password is required!")
+          }
+          else {
+            // Retrieve existing users from local storage or initialize an empty array
+          var existingUsers = JSON.parse(localStorage.getItem("users")) || [];
+    
+          // Add the new user to the array
+          existingUsers.push(user);
+    
+    // Store the updated user list back in local storage
+    localStorage.setItem("users", JSON.stringify(existingUsers));
+    
+    // Optionally, you can display a message to indicate successful registration
+    alert("User registered successfully!");
+    window.location.href = "borrower_homepage.html";
+          }
+        }
+      </script>
+  </body>
+
+</html>

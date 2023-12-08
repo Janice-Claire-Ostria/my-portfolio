@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css"/>
+  <link rel="stylesheet" href="admin_library.css"/>
+  <link rel="shorcut icon" type="image/png" href="img/favicon.png">
+    <title>AddBook</title>
+    <style>
+      #edit-pop-up {
+      position: fixed;
+      display: none;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: rgba(255, 255, 255, 0.979);
+      border-radius: 20px;
+      box-shadow: 0 15px 15px rgba(0, 0, 0, 0.3);
+      z-index: 101;
+      color: rgba(0, 0, 0, 0.644);
+      text-align: right;
+      flex-wrap: wrap;
+    }
+    #edit-pop-up label {
+      margin: 0px 0px 0px 50px;
+      font-size: 13px;
+      font-weight: bold;
+    }
+    
+    #edit-pop-up input{
+      font-size: 12px;
+      width: 240px;
+      padding: 16px 20px;
+      margin: 15px 50px 5px 10px;      
+      border: 1px solid rgba(0, 0, 0, 0.151);
+      color:rgba(0, 0, 0, 0.644);
+      border-radius: 25px;
+      box-sizing: border-box;
+      height: 30px;
+      text-align: left;
+      display: inline-block;
+      background-color: transparent;
+      display: inline;
+    }
+
+    #edit-pop-up button{
+      font-size: 12px;
+      width: 120px;
+      padding: 10px 20px 25px 20px;
+      margin: 15px 50px 20px 20px;      
+      border: 1px solid white;
+      border-radius: 25px;
+      box-sizing: border-box;
+      height: 20px;
+      display: inline-block;
+      color: white;
+      background-color: rgba(54, 0, 25, 0.822);
+      transition: ease-in 0.5s;
+    }
+    #edit-pop-up button:hover {
+    background-color: transparent;
+    border: 1px solid rgba(0, 0, 0, 0.644);
+    color: rgba(0, 0, 0, 0.644);
+    }      
+    </style>
+
+  </head>
+  
+  <body>
+    <div class="head">
+    <a href="#"><div id="logo"><i class="fa-solid fa-book-open"></div></i><p>Library Management</p> </a>
+
+    </div><br>
+
+    <div class="navbar">
+      <div class="buttons">
+          <a href="admin_add_book.html" style="border-bottom: 3px solid white;"><i class="fa fa-book"></i><br>Add Book</a>
+          <a href="admin_add_borrower.html"><i class="fa-solid fa-book-open-reader"></i><br>Add Borrower</a>
+          <a href="admin_book_approval.html"><i class="fa-regular fa-circle-check"></i></i><br>Book Approval</a>
+          <a href="admin_book_return.html"><i class="fa-solid fa-turn-up" style="rotate: 270deg;"></i><br>Book Return</a>
+          <a href="admin_borrower_report.html"><i class="fa-solid fa-address-book"></i><br>Borrower Report</a>
+          <a href="admin_book_report.html"><i class="fa-solid fa-list-ul"></i><br>Book Report</a>                                
+      </div>
+    </div>
+    <div class="bottom-right">
+      <div class="view-buttons">
+          <a href="admin_homepage.html" title="Home"><i class="fa-solid fa-house" style="padding: 0px 0px 0px 1px;"></i></a>         
+          <a href="admin_booklist.html" title="Inventory"><i class="fa-solid fa-table-cells" style="padding: 0px 0px 0px 2px;"></i></a>
+          <a href="admin_login.html" title="LogOut"><i class="fa-solid fa-right-from-bracket" style="padding: 0px 0px 0px 3px;"></i></a>
+      </div>
+    </div>
+    <div class="overview">
+      <div class="middle"> 
+          <img src="bg.png" width="100%"/>   
+          
+          <div class="left">
+              <div id="welcome">
+                  <h1>AddBook</h1>
+                  <br><p style="margin: 0px 0px 15px 35px; font-size: 10px;">return to</p><a href="admin_homepage.html">Home</a>   
+              </div>     
+          </div> 
+      </div>
+    </div>
+    <div class="contents">
+      <div class="inputDiv">
+        <div class="half">
+          <form id="bookForm">
+            <label for="bookId">Id:</label><br>
+            <input type="number" id="bookId" required><br>
+            
+            <label for="isbn">ISBN:</label><br>
+            <input type="number" id="isbn" required><br>
+            
+            <label for="title">Title:</label><br>
+            <input type="text" id="title" required><br>
+            
+            <label for="author">Author:</label><br>
+            <input type="text" id="author" required><br>
+            
+            <label for="publishDate">Publish Date:</label><br>
+            <input type="date" id="publishDate" required><br>
+            
+            <label for="genre">Genre:</label><br>
+            <input type="text" id="genre" required><br>
+            
+            <label for="price">Price:</label><br>
+            <input type="text" id="price" required><br>
+            
+            <label for="quantity">Quantity:</label><br>
+            <input type="number" id="quantity" required><br>
+          </div>
+          
+          <div id="btns" style="text-align: center;">
+            <button type="button" onclick="clearFields()">Clear All</button>
+            <button type="submit" onclick="bookAdd()">Add Book</button>
+          </div>       
+        </form>
+      </div><br>
+           
+      <div class="tableDiv">
+        <table style="position: absolute; background-color: white; margin-top: 0px; height: 60px;">
+          <tr>
+            <th>Book Id</th>
+            <th>ISBN</th>
+            <th>Title</th>
+            <th>Author</th>
+            <th>Publish Date</th>
+            <th>Genre</th>
+            <th>Price</th>
+            <th>Quantity</th>
+            <th>Actions</th>
+          </tr>
+        </table>
+        <div id="bookList">
+  
+        </div>
+      </div>
+  
+      <div id="edit-pop-up">
+        <div id="edit-inputs">
+          
+        </div>
+      </div>
+    
+    </div>
+  </body>
+
+  <script>
+   function bookAdd() {
+    var bookId = document.getElementById("bookId").value;
+    var isbn = document.getElementById("isbn").value;
+    var title = document.getElementById("title").value;
+    var author = document.getElementById("author").value;
+    var publishDate = document.getElementById("publishDate").value;
+    var genre = document.getElementById("genre").value;
+    var price = document.getElementById("price").value;
+    var quantity = document.getElementById("quantity").value;
+    
+    // Create new book
+    var newBook = {
+        id: bookId,
+        isbn: isbn,
+        title: title,    
+        author: author,
+        publishDate: publishDate,
+        genre: genre,
+        price: price,
+        quantity: quantity
+    };
+    
+    var storedBooks = JSON.parse(localStorage.getItem("books")) || [];
+    storedBooks.push(newBook);
+    localStorage.setItem("books", JSON.stringify(storedBooks));
+
+    var copyOfBook = {
+      id: bookId,
+      isbn: isbn,
+      title: title,    
+      author: author,
+      publishDate: publishDate,
+      genre: genre,
+      price: price,
+      available: quantity,
+      quantity: quantity,
+      rent: ""
+    };
+
+    var availableBooks = JSON.parse(localStorage.getItem("booksAvailable")) || [];
+    availableBooks.push(copyOfBook);
+    localStorage.setItem("booksAvailable", JSON.stringify(availableBooks));
+    
+    // Display success message
+    alert("New Book Added!" +
+    "Id: " + bookId +
+    "\nISBN: " + isbn +
+    "\nTitle: " + title +  
+    "\nAuthor: " + author +
+    "\nPublish Date: " + publishDate +
+    "\nGenre: " + genre +
+    "\nPrice: " + price +
+    "\nQuantity: " + quantity);
+
+    //clear fields
+    document.getElementById("bookId").value = "";
+    document.getElementById("isbn").value = "";
+    document.getElementById("title").value = "";    
+    document.getElementById("author").value = "";
+    document.getElementById("publishDate").value = "";
+    document.getElementById("genre").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("quantity").value = "";
+  
+    displayTable();
+  }
+
+function displayTable() {
+    var storedBooks = JSON.parse(localStorage.getItem("books")) || [];
+    
+    var table = document.createElement('table');
+    var headerRow = table.insertRow();
+    headerRow.innerHTML = "<th>Book Id</th> <th>ISBN</th> <th>Title</th> <th>Author</th> <th>Publish Date</th> <th>Genre</th> <th>Price</th> <th>Quantity</th> <th>Actions</th>"
+    storedBooks.forEach(function(book, index) {
+        var row = table.insertRow();
+        row.innerHTML = "<td>" + book.id + "</td><td>" + book.isbn + "</td><td>" + book.title + "</td><td>" + book.author + "</td><td>" + 
+            book.publishDate + "</td><td>" + book.genre + "</td><td>" + book.price + "</td><td>" + book.quantity +
+                "</td><td><button onclick='editBook(" + index + ")'>Edit</button> <button onclick='removeBook(" + index + ")'>Remove</button></td>";
+            });
+            
+            document.getElementById("bookList").innerHTML = "";
+            document.getElementById("bookList").appendChild(table);
+        }
+        
+        function editBook(index) {
+  var storedBooks = JSON.parse(localStorage.getItem("books")) || [];
+  var book = storedBooks[index];
+
+  if (book) {
+    var formContainer = document.getElementById("edit-pop-up");
+    formContainer.style.display = "inline-block"
+
+    var form = document.createElement("form");
+
+    // Create input fields for each property
+    for (var prop in book) {
+      if (prop !== "id") {
+        var label = document.createElement("label");
+        label.textContent = prop.charAt(0).toUpperCase() + prop.slice(1) + ": ";
+        var input = document.createElement("input");
+        input.type = "text";
+        input.value = book[prop];
+        input.name = prop;
+        form.appendChild(label);
+        form.appendChild(input);
+        form.appendChild(document.createElement("br"));
+      }
+    }
+
+    // Create submit button
+    var submitBtn = document.createElement("button");
+    submitBtn.type = "button";
+    submitBtn.textContent = "Save";
+    submitBtn.addEventListener("click", function() {
+      // Update the book object with the edited values
+      for (var prop in book) {
+        if (prop !== "id") {
+          book[prop] = form.elements[prop].value;
+        }
+      }
+
+      // Update the storedBooks array in local storage
+      localStorage.setItem("books", JSON.stringify(storedBooks));
+      localStorage.setItem("booksAvailable", JSON.stringify(storedBooks));
+
+      // Close the form
+      formContainer.removeChild(form);
+
+      // Display success message or perform any other necessary actions
+      alert("Book updated!");
+
+      // Call a function to update the displayed table
+      displayTable();
+    });
+
+    // Append the form to the formContainer div
+    formContainer.appendChild(form);
+    form.appendChild(submitBtn);
+  }
+}
+           
+        function removeBook(index) {
+            var remove = JSON.parse(localStorage.getItem("books")) || [];
+            remove.splice(index, 1);
+            localStorage.setItem("books", JSON.stringify(remove));
+
+            var remove = JSON.parse(localStorage.getItem("booksAvailable")) || [];
+            remove.splice(index, 1);
+            localStorage.setItem("booksAvailable", JSON.stringify(remove));
+            displayTable();
+        }
+        
+        function clearFields() {
+            document.getElementById("bookId").value = "";
+            document.getElementById("isbn").value = "";
+            document.getElementById("title").value = "";
+            document.getElementById("author").value = "";
+            document.getElementById("publishDate").value = "";
+            document.getElementById("genre").value = "";
+            document.getElementById("price").value = "";
+            document.getElementById("quantity").value = "";
+        } 
+
+</script>
+
+<script>
+  displayTable();
+</script>
+
+</html>

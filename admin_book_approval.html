@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+  <link rel="stylesheet" href="admin_library.css">
+  <link rel="shorcut icon" type="image/png" href="img/favicon.png">
+
+  <title>Book Approval</title> 
+</head>
+
+<body>
+    <div class="head">
+        <a href="#"><div id="logo"><i class="fa-solid fa-book-open"></div></i><p>Library Management</p> </a>
+    
+        </div><br>
+    
+        <div class="navbar">
+          <div class="buttons">
+            <a href="admin_add_book.html"><i class="fa fa-book"></i><br>Add Book</a>
+            <a href="admin_add_borrower.html"><i class="fa-solid fa-book-open-reader"></i><br>Add Borrower</a>
+            <a href="admin_book_approval.html" style="border-bottom: 3px solid white;"><i class="fa-regular fa-circle-check"></i></i><br>Book Approval</a>
+            <a href="admin_book_return.html"><i class="fa-solid fa-turn-up" style="rotate: 270deg;"></i><br>Book Return</a>
+            <a href="admin_borrower_report.html"><i class="fa-solid fa-address-book"></i><br>Borrower Report</a>
+            <a href="admin_book_report.html"><i class="fa-solid fa-list-ul"></i><br>Book Report</a>
+          </div>
+        </div>
+        <div class="bottom-right">
+          <div class="view-buttons">
+              <a href="admin_homepage.html" title="Home"><i class="fa-solid fa-house" style="padding: 0px 0px 0px 1px;"></i></a>         
+              <a href="admin_booklist.html" title="Inventory"><i class="fa-solid fa-table-cells" style="padding: 0px 0px 0px 2px;"></i></a>
+              <a href="admin_login.html" title="LogOut"><i class="fa-solid fa-right-from-bracket" style="padding: 0px 0px 0px 3px;"></i></a>
+          </div>
+        </div>
+        <div class="overview">
+          <div class="middle"> 
+              <img src="bg.png" width="100%"/>   
+              
+              <div class="left">
+                  <div id="welcome">
+                      <h1>Book Approval</h1>
+                      <br><p style="margin: 0px 0px 15px 35px; font-size: 10px;">return to</p><a href="admin_homepage.html">Home</a>   
+                  </div>     
+              </div> 
+          </div>
+        </div>
+        <div class="contents">
+          <div class="tableDiv">
+            <table style="position: absolute; background-color: white; margin-top: 0px; height: 60px;">
+              <tr>
+                <th>Name</th>
+                <th>Book Id</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Genre</th>
+                <th>Issue Date</th>
+                <th>Expiry Date</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </table>
+            <div id="requestsTable">
+
+            </div>  
+          </div>
+        </div>
+  <script>             
+          function displayRequests() {
+            
+            var requests = JSON.parse(localStorage.getItem("bookRequests")) || [];
+      
+            var table = document.createElement("table");
+            var headerRow = table.insertRow();
+            headerRow.innerHTML = "<th>Name</th><th>Book id</th><th>Book Title</th><th>Author</th><th>Genre</th><th>Issue Date</th><th>Expiry Date</th><th>Status</th><th>Action</th>";
+            requests.forEach(function(request, index) {
+              var row = table.insertRow();
+               row.innerHTML = "<td>" + request.name + "</td><td>"  + request.bookId + "</td><td>" + request.bookTitle + "</td><td>" + request.author + "</td><td>" + request.genre + "</td><td>" + request.issueDate + "</td><td>" + request.expiryDate + "</td><td>" + request.status + "</td><td><button onclick='approveRequest(" + index + ")' id='approve'>Approve</button> <button onclick='rejectRequest(" + index + ")'>Reject</button> <button onclick='removeRequest(" + index + ")'>Remove</button></td>";
+            });
+      
+            document.getElementById("requestsTable").innerHTML = "";
+            document.getElementById("requestsTable").appendChild(table);
+          }
+          
+          function approveRequest(index) {
+          // Retrieve the book requests from local storage
+          var requests = JSON.parse(localStorage.getItem("bookRequests")) || [];
+      
+          // Update the status of the selected request to "Approved"
+          requests[index].status = "Approved";
+      
+          // Update the book requests data in local storage
+          localStorage.setItem("bookRequests", JSON.stringify(requests));
+      
+          // Retrieve the books from local storage
+          var storedBooks = JSON.parse(localStorage.getItem("booksAvailable")) || [];
+      
+          // Find the book corresponding to the approved request
+          var bookId = requests[index].bookId;
+          var foundBook = storedBooks.find(book => book.id === bookId);
+      
+          // Check if the book with the specified ID was found
+          if (foundBook) {
+            // Update the book information
+      
+            foundBook.rent++;
+            foundBook.available = foundBook.quantity - foundBook.rent;
+
+          
+            // Update the books data in local storage
+            localStorage.setItem("booksAvailable", JSON.stringify(storedBooks));
+            document.getElementById('approve').disabled = true;
+            alert("Book Approved")
+
+            displayRequests();
+      
+        }
+      
+      }
+      
+          function rejectRequest(index) {
+            var requests = JSON.parse(localStorage.getItem("bookRequests")) || [];
+            requests[index].status = "Rejected";
+            localStorage.setItem("bookRequests", JSON.stringify(requests));
+            displayRequests();
+          }
+      
+          function removeRequest(index) {
+            var requests = JSON.parse(localStorage.getItem("bookRequests")) || [];
+            requests.splice(index, 1);
+            localStorage.setItem("bookRequests", JSON.stringify(requests));
+            displayRequests();
+          }
+        </script>
+      
+        <script>
+          displayRequests();
+        </script>
+</body>
+</center>
+</html>

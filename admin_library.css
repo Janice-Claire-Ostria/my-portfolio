@@ -1,0 +1,368 @@
+* { 
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;   
+}
+body {
+  
+}
+
+.head {
+  display: flex;
+  background-color: white;
+  flex-wrap: wrap;
+  position: fixed;
+  width: 100%;
+  z-index: 98;
+  border-bottom: 1px solid white;
+}
+.head a {
+  display: flex;
+  margin: 7px 15px 7px 15px;
+  text-decoration: none;
+}
+.head p {
+  margin: 12px 0px 12px 12px;
+  color: rgb(54, 0, 25);
+  font-size: 20px;
+  font-family: Trebuchet MS;
+}
+#logo {
+  background-color: rgba(54, 0, 25, 0.767);
+  border-radius: 50%; 
+  
+}
+.head i{
+  padding: 13px 12px 13px 12px;
+  margin: 2px 2px 2px 2px;
+  border: 2px solid white;
+  color: white;
+  border-radius: 50%;
+  background-color: rgba(54, 0, 25, 0.767);
+}
+.navbar {
+  flex-wrap: wrap;
+  background-color: transparent;
+  height: 65px;
+  z-index: 98;
+  width: 100% ;
+  margin: 40px 0px 0px 0px;
+  position: fixed;
+}
+.buttons {
+  display: flex;
+  justify-content: center;
+  text-align: center;
+}
+.buttons a{
+  width: 90px;
+  padding: 15px 5px 5px 5px;
+  margin: 0px 15px 0px 15px;
+  font-size: 10px;
+  color: white;
+  text-decoration: none;
+}
+.buttons a i {
+  font-size: 17px;
+  margin: 0px 0px 5px 0px;
+}
+.buttons a:hover {
+  border-bottom: 3px solid white;
+}
+.bottom-right {
+  bottom: 15%;
+  right: 1%;
+  position: fixed;
+  z-index: 99;
+  width: 50px;
+  height: 50px;
+}
+.bottom-right .view-buttons {
+  display: flex;
+  flex-wrap: wrap;
+}
+.bottom-right a {
+  background-color: rgba(54, 0, 25, 0.822);
+  color: white;
+  padding: 10px 12px 10px 12px;
+  border-radius: 50%;
+  margin: 5px 5px 5px 5px;
+  width: 40px;
+  height: 40px;
+  font-size: 13px;
+}
+
+.middle {
+  width: 100%;
+  height: 100%;
+  position: fixed;
+}
+
+/*HomePage*/
+.left {
+  width: 100%;
+  height: 100%;
+  background-image: linear-gradient(to right, rgb(54, 0, 25), transparent);
+  z-index: 96;
+  position: absolute;
+  top: 3%;
+}
+.left #welcome {
+  margin: 0px 0px 0px 150px;
+  color: white;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
+  padding: 10px;
+  text-align: left;
+}
+.left h1 {
+  font-size: 50px;
+  font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif; 
+}
+.left p {
+  margin: 0px 0px 0px 10px
+}
+.left a {
+  background-color: white;
+  border: 2px solid white;
+  color: rgb(54, 0, 25);
+  text-decoration: none;
+  padding: 11px 23px 11px 23px;
+  margin: 10px 0px 0px 10px;
+  border-radius: 30px;
+  font-size: 13px;
+  transition: ease-in 0.5s;
+}
+.left a:hover {
+  background-color: transparent;
+  color: white;
+}
+.middle img {
+  height: 100%;
+  object-fit: cover;
+  z-index: 95;
+}
+/*DashBoard*/
+.overview .middle {
+  height: 45%;
+}
+.overview .left {
+  height: 98%;
+}
+.overview .left #welcome {
+  transform: translate(0, -35%);
+}
+.overview .left a {
+  padding: 10px 23px 10px 23px;
+}
+
+.contents {
+  position: fixed;
+  top: 50%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 100%;
+  height: 420px;
+  overflow-y: scroll;
+}
+
+.contents::-webkit-scrollbar {
+  display: none;
+} 
+.contents {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.contents label {
+  font-weight: 700;
+}
+input:focus {
+  outline:1px solid rgba(87, 0, 41, 0.384);
+}
+
+/*addbook bookreport bookreturn borrowerreport*/
+.inputDiv {
+  background-color: white;
+  color: rgba(0, 0, 0, 0.644);
+  width: 980px;
+  height: 380px;
+  margin: auto;
+  margin-bottom: 40px;
+  margin-top: 10px;
+  text-align: left;
+  border-radius: 20px;
+  padding: 15px 80px 30px 85px;
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.13);
+  z-index: 98;
+}
+.inputDiv .half {
+  column-count: 2;
+}
+.inputDiv label {
+  font-size: 11px;
+  margin: 20px 20px 20px 30px;
+}   
+.inputDiv input[type=text], input[type=number], input[type=date], input[type=datetime-local] {
+  font-size: 12px;
+  width: 360px;
+  padding: 18px 20px;
+  margin: 5px 20px 7px 20px;      
+  border: 1px solid rgba(0, 0, 0, 0.151);
+  border-radius: 25px;
+  box-sizing: border-box;
+  height: 30px;
+  text-align: left;
+  display: inline-block;
+  color: rgba(0, 0, 0, 0.644);
+  background-color: transparent;
+}
+.inputDiv button {
+  font-size: 12px;
+  width: 200px;
+  padding: 12px 20px 26px 20px;
+  margin: 15px 20px 10px 20px;      
+  border: 1px solid white;
+  border-radius: 25px;
+  height: 25px;
+  display: inline-block;
+  color: white;
+  background-color: rgba(54, 0, 25, 0.822);
+  transition: ease-in 0.5s;
+}
+.inputDiv button:hover {
+  background-color: transparent;
+  border: 1px solid rgba(54, 0, 25, 0.822);
+  color: rgba(54, 0, 25, 0.822);
+}       
+.tableDiv {
+  background-color: white;
+  width: 980px;
+  height: 400px;
+  margin: auto;
+  margin-bottom: 80px;
+  text-align: left;
+  border-radius: 20px;
+  padding: 0px 140px 10px 20px;
+  box-shadow: 0 5px 10px 1px rgba(0, 0, 0, 0.13);
+  overflow-y: scroll;
+  z-index: 98;
+}     
+.tableDiv::-webkit-scrollbar {
+  display: none;
+} 
+.tableDiv {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+table, th, tr, tbody, thead, td {
+  border-bottom: 1px solid rgba(0, 0, 0, 0.151);
+  border-collapse: collapse;
+  color: rgba(0, 0, 0, 0.644);
+  padding: 5px 5px 5px 5px;
+}
+th {
+  text-align: center;
+}
+
+table {
+  text-justify: left;
+  color: rgb(255, 255, 255);
+  align-items: left;
+  margin: 30px 5px 2px 5px;
+  width: 930px;
+  table-layout: fixed;
+  overflow-x: scroll;
+}
+
+th {
+  font-size: 15px;
+}
+td {
+  font-size: 13px;
+  overflow-x: hidden;
+  overflow-y: hidden;
+  text-align: center;
+}
+.tableDiv button {
+  font-size: 10px;
+  width: 80px;
+  padding: 5px 10px 15px 10px;
+  margin: 5px 3px 1px 5px;      
+  border: 1px solid white;
+  color: white;
+  border-radius: 25px;
+  box-sizing: border-box;
+  height: 28px;
+  display: inline-block;
+  background-color: rgba(54, 0, 25, 0.822);
+  transition: ease-in 0.5s;
+}
+.tableDiv button:hover {
+  background-color: transparent;
+  border: 1px solid rgba(54, 0, 25, 0.822);
+  color: rgba(54, 0, 25, 0.822);
+}
+.tableDiv input[type=text] {
+  width: 85px;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 0, 0, 0.151);
+  padding: 5px 15px 6px 15px;
+  margin: 5px 3px 1px 5px;      
+  font-size: 12px;
+  text-align: center;
+}
+
+/*Add Borrower*/
+#borrowerSection {
+ text-align: center;
+}
+.borrowerInput .inputDiv, .tableDiv{
+  height: 320px;
+}
+.borrowerInput .inputDiv input[type=text]{
+  width: 380px;
+}
+.borrowerInput .inputDiv button{
+  width: 170px;
+}
+
+/*BookList*/
+.container{
+  height: 280px;
+  text-align: center;
+}
+.container-1{
+  border: none;
+  position: absolute;
+  width: 1000px;
+  height: 200px;
+  display: flex;
+  overflow: auto;
+  flex-wrap: wrap;
+}
+.container-1 img{
+  width: 130px;
+  height: 160px;
+  border-radius: 10px;
+  padding-left: 5px;
+}
+
+/*borrower bookrequest*/
+.requestcontents .inputDiv, .tableDiv {
+  height: 310px; 
+  flex-wrap: wrap;
+}
+.requestInput {
+  column-count: 2;
+}
+.requestInput #datetime {
+  column-count: 2;
+}
+
+.requestInput input[type=datetime-local] {
+  width: 172px;
+  padding: 18px 11px 20px 11px;
+} 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Librarian Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <link rel="stylesheet" href="borrower_library.css"/>
+  <link rel="shorcut icon" type="image/png" href="img/favicon.png">
+</head>
+
+<body>
+  <div class="login-middle"> 
+    <img src="img/library-background.jpg" width="100%"/>   
+  </div>  
+
+    <div class="login-section">
+      <div class="login-container">
+        <img src="img/library(2).jpg"/>
+          <div class="login-form">
+            <h2>Librarian Login</h2>
+            <form>
+              <i class="fa-solid fa-user"> </i>&emsp;
+              <input type="text" name="email" id="email" placeholder="Email" required></input><br>   
+              <i class="fa-solid fa-lock"> </i>&emsp;
+              <input type="text" name="password" id="password" placeholder="Password" required></input><br>           
+              <button type="button" name="submit" id="submit" class="btn-submit" onclick="login()">Login</button>
+            </form>
+            <br>
+            <p>Return to <a href="index.html">Lobby</a></p>
+          </div>
+         
+      </div>
+    </div>
+
+
+  <script>
+    function login() {
+    let username = document.getElementById('email').value;
+    let password = document.getElementById('password').value;
+
+  if (username === "admin" && password === "admin") {
+    alert("Login successful!");
+    document.getElementById('email').value = "";
+    document.getElementById('password').value = "";
+    window.location.href = "admin_homepage.html";
+  } else {
+    alert("Incorrect username or password. Please try again.");
+    document.getElementById('email').value = "";
+    document.getElementById('password').value = "";
+  }
+}
+
+  </script>
+</body>
+</html>
